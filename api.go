@@ -1,33 +1,40 @@
 package main
 
 import (
-	"io/ioutil"
+	// "io/ioutil"
 	"net/http"
 	"log"
+	"encoding/json"
 )
 
 
 type Holiday struct {
-	Holiday	bool `json:"holiday"`
 	Name	string `json:"name"`
-	Wage	int `json:"wage"`
 	Date	string `json:"date`
+	OffDay	bool `json:"isOffDay"`
 }
 
 type ResponseData struct {
-	Code	int `json:"code"`
-	Holiday	map[string]Holiday `json:"holiday"`
+	Papers	[]string `json:"papers"`
+	Days	[]Holiday `json:"days"`
 }
 
 
-func GetHolidays() {
-	res, err := http.Get("http://timor.tech/api/holiday/year/")
+func GetHolidays() []Holiday {
+	res, err := http.Get("https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/2020.json")
 	if err != nil{
 		log.Fatal(err)
 	}
 
 	defer res.Body.Close()
 
-	body, _ := ioutil.ReadAll(res.Body)
-	log.Print(string(body))
+	var result ResponseData
+
+	json.NewDecoder(res.Body).Decode(&result)
+
+	for _, h := range result.Days {
+		log.Println(h.Name)
+	}
+
+	return result.Days
 }
