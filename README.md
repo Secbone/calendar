@@ -30,4 +30,4 @@ docker run -d -p [port]:80 secbone/calendar
 [stars-image]: https://img.shields.io/docker/stars/secbone/calendar.svg?style=flat-square
 [size-image]: https://images.microbadger.com/badges/image/secbone/calendar.svg
 [size-url]: https://microbadger.com/images/secbone/calendar
-[build-image]: https://img.shields.io/docker/build/secbone/calendar.svg?style=flat-square
+[build-image]: https://img.shields.io/docker/cloud/build/secbone/calendar.svg?style=flat-square
