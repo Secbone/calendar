@@ -19,6 +19,7 @@ type Day struct {
 type ResponseData struct {
 	Papers	[]string `json:"papers"`
 	Days	[]Day `json:"days"`
+	Updated	time.Time
 }
 
 type API struct {
@@ -34,7 +35,10 @@ func NewAPI() *API {
 
 func (a *API) GetData(year int) *ResponseData {
 	if data, ok := a.Data[year]; ok {
-		return data
+		// cache data in 7 days
+		if time.Now().Sub(data.Updated).Hours() < 24 * 7 {
+			return data
+		}
 	}
 
 	a.Data[year] = a.FetchData(year)
@@ -52,6 +56,8 @@ func (a *API) FetchData(year int) *ResponseData {
 	var result ResponseData
 
 	json.NewDecoder(res.Body).Decode(&result)
+	result.Updated = time.Now()
+	
 	return &result
 }
 
