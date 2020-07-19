@@ -7,11 +7,10 @@
 [![Docker size][size-image]][size-url]
 
 #### calendar
-![calendar](images/calendar.png)
+<img src="images/calendar.png" height="400" />
 
 #### itsycal
-![itsycal](images/itsycal.png)
-
+<img src="images/itsycal.png" height="300" />
 
 ## Subscription
 
