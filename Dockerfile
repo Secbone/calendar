@@ -18,7 +18,8 @@ WORKDIR /app
 
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /app/main .
+COPY icalendar.tmpl .
 
 EXPOSE 80
 
-CMD ["./main"] 
+CMD ["./main"]
