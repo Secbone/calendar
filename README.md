@@ -10,12 +10,15 @@
 
 本服务分为两个日历，`节假日` 和 `调休`，以便可以分别设置提醒和区分颜色
 
+MacOS 打开 `日历`，左上角 `文件` - `新建日历订阅`，添加如下地址订阅
+
 - 节假日: `https://calendar.2huo.us/off`
 - 调休: `https://calendar.2huo.us/work`
 
 ## Docker
 
-```
+自建订阅服务
+```bash
 docker pull secbone/calendar
 
 docker run -d -p [port]:80 secbone/calendar
