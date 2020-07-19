@@ -4,24 +4,45 @@ import (
 	// "io/ioutil"
 	"net/http"
 	"log"
+	"time"
+	"strconv"
 	"encoding/json"
 )
 
 
-type Holiday struct {
+type Day struct {
 	Name	string `json:"name"`
-	Date	string `json:"date`
+	Date	string `json:"date"`
 	OffDay	bool `json:"isOffDay"`
 }
 
 type ResponseData struct {
 	Papers	[]string `json:"papers"`
-	Days	[]Holiday `json:"days"`
+	Days	[]Day `json:"days"`
+}
+
+type API struct {
+	Data map[int]*ResponseData
 }
 
 
-func GetHolidays() []Holiday {
-	res, err := http.Get("https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/2020.json")
+func NewAPI() *API {
+	return &API{
+		Data: make(map[int]*ResponseData),
+	}
+}
+
+func (a *API) GetData(year int) *ResponseData {
+	if data, ok := a.Data[year]; ok {
+		return data
+	}
+
+	a.Data[year] = a.FetchData(year)
+	return a.Data[year]
+}
+
+func (a *API) FetchData(year int) *ResponseData {
+	res, err := http.Get("https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/"+ strconv.Itoa(year) +".json")
 	if err != nil{
 		log.Fatal(err)
 	}
@@ -31,10 +52,33 @@ func GetHolidays() []Holiday {
 	var result ResponseData
 
 	json.NewDecoder(res.Body).Decode(&result)
+	return &result
+}
 
-	for _, h := range result.Days {
-		log.Println(h.Name)
+
+func (a *API) FillCalendar(c *Calendar, off bool) *Calendar {
+	year := time.Now().Year()
+	
+	for y := year - 2; y <= year; y++ {
+		data := a.GetData(y)
+
+		for _, day := range data.Days {
+			if day.OffDay != off {
+				continue
+			}
+	
+			t, _ := time.Parse("2006-01-02", day.Date)
+			c.AddHoliday(day.Name, t, day.OffDay)
+		}
 	}
 
-	return result.Days
+	return c
+}
+
+func (a *API) GetWorkCalendar() *Calendar {
+	return a.FillCalendar(NewWorkCalendar(), false)
+}
+
+func (a *API) GetOffCalendar() *Calendar {
+	return a.FillCalendar(NewOffCalendar(), true)
 }
