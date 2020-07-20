@@ -10,15 +10,15 @@ import (
 
 func main() {
 	a := arry.New()
-    a.Use(middlewares.Gzip)
-    a.Use(middlewares.Logger())
-    a.Use(middlewares.Panic)
+	a.Use(middlewares.Gzip)
+	a.Use(middlewares.Logger())
+	a.Use(middlewares.Panic)
 
 	api := NewAPI()
 
 	router := a.Router()
 
-    router.Get("/work", func(ctx arry.Context) {
+	router.Get("/work", func(ctx arry.Context) {
 		work := api.GetWorkCalendar()
 		ctx.Response().Code = 200
 		work.Render(ctx.Response().Writer)
@@ -34,14 +34,14 @@ func main() {
 		log.Printf("Listening at :80")
 		err := a.Start(":80")
 
-        if err != nil {
-            log.Fatalf("Could not start server: %s\n", err.Error())
-        }
-    }()
+		if err != nil {
+			log.Fatalf("Could not start server: %s\n", err.Error())
+		}
+	}()
 
-    quit := make(chan os.Signal)
-    signal.Notify(quit, os.Interrupt)
+	quit := make(chan os.Signal)
+	signal.Notify(quit, os.Interrupt)
 
-    <-quit
-    log.Printf("shutdown")
+	<-quit
+	log.Printf("shutdown")
 }
