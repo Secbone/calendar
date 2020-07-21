@@ -1,5 +1,5 @@
-github.com/pionus/arry v0.0.0-20200718163948-650cbdd831ed h1:871Ari9quW4ikwIaObKvm7m43uLlKVX9lMa0qAVmxdk=
-github.com/pionus/arry v0.0.0-20200718163948-650cbdd831ed/go.mod h1:95uEWvdzdPe1Snt3MzjYULoeTSMEUJLsD4evQJP96YA=
+github.com/pionus/arry v0.0.0-20200721135907-bf6c6437dfdc h1:knj0sX/2P3IXH+Go0bC5pyH/TM2dhg4pk055cn1xFXc=
+github.com/pionus/arry v0.0.0-20200721135907-bf6c6437dfdc/go.mod h1:95uEWvdzdPe1Snt3MzjYULoeTSMEUJLsD4evQJP96YA=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 h1:DZhuSZLsGlFL4CmhA8BcRA0mnthyA/nZ00AqCUo7vHg=
 golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
