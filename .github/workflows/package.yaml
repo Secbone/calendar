@@ -1,0 +1,31 @@
+name: build image to gihub packages
+
+on: push
+
+jobs:
+  latest:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/latest'
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: build image on latest tag
+      uses: VaultVulp/gp-docker-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        image-name: calendar
+        image-tag: latest
+  test:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: build image on test tag
+      uses: VaultVulp/gp-docker-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        image-name: calendar
+        image-tag: test

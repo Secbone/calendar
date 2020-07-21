@@ -8,15 +8,15 @@ import (
 
 func main() {
 	a := arry.New()
-    a.Use(middlewares.Gzip)
-    a.Use(middlewares.Logger())
-    a.Use(middlewares.Panic)
+	a.Use(middlewares.Gzip)
+	a.Use(middlewares.Logger())
+	a.Use(middlewares.Panic)
 
 	api := NewAPI()
 
 	router := a.Router()
 
-    router.Get("/work", func(ctx arry.Context) {
+	router.Get("/work", func(ctx arry.Context) {
 		work := api.GetWorkCalendar()
 		ctx.Response().Code = 200
 		work.Render(ctx.Response().Writer)
@@ -35,5 +35,5 @@ func main() {
 		log.Fatalf("Could not start server: %s\n", err.Error())
 	}
 
-    log.Printf("shutdown")
+	log.Printf("shutdown")
 }
