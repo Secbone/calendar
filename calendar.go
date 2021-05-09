@@ -36,13 +36,13 @@ func NewCalendar(name string, color string) *Calendar {
 
 func NewWorkCalendar() *Calendar {
 	c := NewCalendar("调休", "#DD2222")
-	c.SetPrefix("🔴")
+	c.SetPrefix("🔴")
 	return c
 }
 
 func NewOffCalendar() *Calendar {
 	c := NewCalendar("节假日", "#22DD22")
-	c.SetPrefix("🟢")
+	c.SetPrefix("🟢")
 	return c
 }
 
