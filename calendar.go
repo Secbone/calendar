@@ -41,7 +41,7 @@ func NewWorkCalendar() *Calendar {
 }
 
 func NewOffCalendar() *Calendar {
-	c := NewCalendar("节假日", "#22DD22")
+	c := NewCalendar("节假日", "#22DD22")
 	c.SetPrefix("🟢")
 	return c
 }
