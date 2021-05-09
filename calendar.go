@@ -21,6 +21,7 @@ type Calendar struct {
 	Color string
 	Holidays []Holiday
 	t *template.Template
+	prefix string
 }
 
 func NewCalendar(name string, color string) *Calendar {
@@ -34,11 +35,20 @@ func NewCalendar(name string, color string) *Calendar {
 }
 
 func NewWorkCalendar() *Calendar {
-	return NewCalendar("调休", "#DD2222")
+	c := NewCalendar("调休", "#DD2222")
+	c.SetPrefix("🔴")
+	return c
 }
 
 func NewOffCalendar() *Calendar {
-	return NewCalendar("节假日", "#22DD22")
+	c := NewCalendar("节假日", "#22DD22")
+	c.SetPrefix("🟢")
+	return c
+}
+
+
+func (c *Calendar) SetPrefix(prefix string) {
+	c.prefix = prefix
 }
 
 func (c *Calendar) Render(writer io.Writer) {
@@ -60,7 +70,7 @@ func (c *Calendar) RenderString() string {
 
 func (c *Calendar) AddHoliday(name string, date time.Time, rest bool) {
 	c.Holidays = append(c.Holidays, Holiday{
-		Name: name,
+		Name: c.prefix + name,
 		StartDate: date.Format("20060102"),
 		EndDate: date.AddDate(0, 0, 1).Format("20060102"),
 		DTStamp: date.Format("20060102T150405Z"),
