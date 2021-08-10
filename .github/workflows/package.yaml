@@ -2,30 +2,34 @@ name: build image to gihub packages
 
 on: push
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
-  latest:
+  build-ghcr-image:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/latest'
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-    - uses: actions/checkout@master
-
-    - name: build image on latest tag
-      uses: VaultVulp/gp-docker-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        image-name: calendar
-        image-tag: latest
-  test:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-
-    steps:
-    - uses: actions/checkout@master
-
-    - name: build image on test tag
-      uses: VaultVulp/gp-docker-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        image-name: calendar
-        image-tag: test
+      - uses: actions/checkout@master
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
