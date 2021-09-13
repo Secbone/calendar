@@ -18,14 +18,14 @@ func main() {
 
 	router.Get("/work", func(ctx arry.Context) {
 		work := api.GetWorkCalendar()
-		ctx.SetContentType("text/calendar")
+		ctx.SetContentType("text/calendar;charset=UTF-8")
 		ctx.Response().Code = 200
 		work.Render(ctx.Response().Writer)
 	})
 
 	router.Get("/off", func(ctx arry.Context) {
 		off := api.GetOffCalendar()
-		ctx.SetContentType("text/calendar")
+		ctx.SetContentType("text/calendar;charset=UTF-8")
 		ctx.Response().Code = 200
 		off.Render(ctx.Response().Writer)
 	})

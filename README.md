@@ -25,9 +25,9 @@ MacOS 打开 `日历`，左上角 `文件` - `新建日历订阅`，添加如下
 
 自建订阅服务
 ```bash
-docker pull secbone/calendar
+docker pull ghcr.io/secbone/calendar:master
 
-docker run -d -p [port]:80 secbone/calendar
+docker run -d -p [port]:80 ghcr.io/secbone/calendar:master
 ```
 
 ## Thanks
