@@ -63,7 +63,7 @@ func (a *API) FetchData(year int) *ResponseData {
 
 
 func (a *API) FillCalendar(c *Calendar, off bool) *Calendar {
-	year := time.Now().Year()
+	year := time.Now().Year() + 1
 	
 	for y := year - 2; y <= year; y++ {
 		data := a.GetData(y)
