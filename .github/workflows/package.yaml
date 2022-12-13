@@ -1,6 +1,9 @@
 name: build image to gihub packages
 
-on: push
+on:
+  push:
+    tags:
+    - "*"
 
 env:
   REGISTRY: ghcr.io
